@@ -3,6 +3,7 @@ given a droplet on digital ocean the question is : how can you put on it more th
 
 <h2>Steps</h2>
 <ol>
+<li>define domains and relate to the droplet in digital ocean</li>
 <li>each server app should listen on different port</li>
 <li>invoke for each domain the command cerbot e.g. 
 <ol>
