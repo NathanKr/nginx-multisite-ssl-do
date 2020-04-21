@@ -1,5 +1,6 @@
 <h2>Motivation</h2>
-given a droplet on digital ocean the question is : how can you put on it more than one web site \ web app each with its own ssl certificate and own domain name
+<p>given a droplet on digital ocean the question is : how can you put on it more than one web site \ web app each with its own ssl certificate and own domain name<p>
+<p>This is super important because you pay per droplet not per application</p>
 
 <h2>Steps</h2>
 <ol>
