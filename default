@@ -1,4 +1,24 @@
 
+##
+# You should look at the following URL's in order to grasp a solid understanding
+# of Nginx configuration files in order to fully unleash the power of Nginx.
+# https://www.nginx.com/resources/wiki/start/
+# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
+# https://wiki.debian.org/Nginx/DirectoryStructure
+#
+# In most cases, administrators will remove this file from sites-enabled/ and
+# leave it as reference inside of sites-available where it will continue to be
+# updated by the nginx packaging team.
+#
+# This file will automatically load configuration files provided by other
+# applications, such as Drupal or Wordpress. These applications will be made
+# available underneath a path with that package name, such as /drupal8.
+#
+# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+##
+
+# ******************** nathankrasney , port 5000
+
 
 server {
 
@@ -17,12 +37,15 @@ server {
 	# Don't use them in a production server!
 	#
 	# include snippets/snakeoil.conf;
+	
+		
+
 
 	root /var/www/html;
 
 	# Add index.php to the list if you are using PHP
 	index index.html index.htm index.nginx-debian.html;
-    server_name nathankrasney.xyz www.nathankrasney.xyz; # managed by Certbot
+    server_name www.nathankrasney.com nathankrasney.com; # managed by Certbot
 
 
         location / {
@@ -35,30 +58,36 @@ server {
         }
 	
 
+
+    #not working for 2 sites 21/09/2020 listen [::]:443 ssl ipv6only=on; # managed by Certbot
+	listen nathankrasney.com:443 ssl ipv6only=on; # managed by Certbot
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/nathankrasney.xyz/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/nathankrasney.xyz/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/nathankrasney.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/nathankrasney.com/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+
+
 }
-
-
 server {
-    if ($host = www.nathankrasney.xyz) {
+    if ($host = www.nathankrasney.com) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
-    if ($host = nathankrasney.xyz) {
+    if ($host = nathankrasney.com) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
-    server_name nathankrasney.xyz www.nathankrasney.xyz;
-    listen 80;
+	listen 80 ;
+	#not working for 2 sites 21/09/2020 listen [::]:80 ;
+    server_name www.nathankrasney.com nathankrasney.com;
     return 404; # managed by Certbot
-
 }
+
+# ******************** wind-notifier , port 5001
 
 server {
 
@@ -77,12 +106,15 @@ server {
 	# Don't use them in a production server!
 	#
 	# include snippets/snakeoil.conf;
+	
+		
+
 
 	root /var/www/html;
 
 	# Add index.php to the list if you are using PHP
 	index index.html index.htm index.nginx-debian.html;
-    server_name nathankrasney.site www.nathankrasney.site; # managed by Certbot
+    server_name www.wind-notifier.com wind-notifier.com; # managed by Certbot
 
 
         location / {
@@ -96,10 +128,11 @@ server {
 	
 
 
-    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    # not working on dual site listen [::]:443 ssl ipv6only=on; # managed by Certbot
+	listen wind-notifier.com:443 ssl ipv6only=on; # managed by Certbot
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/nathankrasney.site/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/nathankrasney.site/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/wind-notifier.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/wind-notifier.com/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
@@ -107,22 +140,19 @@ server {
 
 }
 server {
-    if ($host = www.nathankrasney.site) {
+    if ($host = www.wind-notifier.com) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
-    if ($host = nathankrasney.site) {
+    if ($host = wind-notifier.com) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
 	listen 80 ;
-	listen [::]:80 ;
-    server_name nathankrasney.site www.nathankrasney.site;
+	#not working for 2 sites 21/09/2020 listen [::]:80 ;
+    server_name www.wind-notifier.com wind-notifier.com;
     return 404; # managed by Certbot
-
-
-
-
 }
+
